@@ -20,7 +20,6 @@
  ediff-window-setup-function 'ediff-setup-windows-plain
  grep-highlight-matches t
  grep-scroll-output t
- indent-tabs-mode nil
  line-spacing 0.2
  make-backup-files nil
  mouse-yank-at-point t
@@ -31,7 +30,7 @@
  tooltip-delay 1.5
  truncate-lines nil
  truncate-partial-width-windows nil
- visible-bell t)
+)
 
 (when *is-a-mac*
   (setq-default locate-command "mdfind"))
@@ -135,7 +134,7 @@
 ;;----------------------------------------------------------------------------
 ;; Rectangle selections, and overwrite text when the selection is active
 ;;----------------------------------------------------------------------------
-(cua-selection-mode t)                  ; for rectangles, CUA is nice
+(cua-selection-mode nil)                  ; for rectangles, CUA is nice
 
 
 ;;----------------------------------------------------------------------------
