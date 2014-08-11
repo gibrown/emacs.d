@@ -1,4 +1,15 @@
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Make cross system config easier
+
+(defmacro require-maybe (feature &optional file)
+  "*Try to require FEATURE, but don't signal an error if `require' fails."
+  `(require ,feature ,file 'noerror)) 
+
+(defmacro when-available (func foo)
+  "*Do something if FUNCTION is available."
+  `(when (fboundp ,func) ,foo)) 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Key Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -114,39 +125,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; a8c grok
 
-(require 'grok)
+(require-maybe 'grok)
 (eval-after-load "grok"
-        '(progn
-                (require 'socks)
+		 '(progn
+				(require 'socks)
 
-                ;; wpdev-abbe-wpcom - SSH hostname corresponding to wpdev@sandbox in $HOME/.ssh/config
-                (setq opengrok-repo-fs-map '(("trunk" . "/wpsb:public_html/")
-                              ("mc" . "/wpsb:/home/missioncontrol/public_html/")
-                  ("vip" . "/wpsb:public_html/wp-content/themes/vip/")))
+				;; wpdev-abbe-wpcom - SSH hostname corresponding to wpdev@sandbox in $HOME/.ssh/config
+				(setq opengrok-repo-fs-map '(("trunk" . "/wpsb:public_html/")
+																		 ("mc" . "/wpsb:/home/missioncontrol/public_html/")
+																		 ("vip" . "/wpsb:public_html/wp-content/themes/vip/")))
 
-                ;; Advices to activate/deactivate SOCKS proxy before/after function invocation
-                (defadvice opengrok-search (before opengrok-search-use-proxy first)
-                        (setq opengrok-url-gateway-method url-gateway-method
-                                opengrok-socks-server socks-server
-                                url-gateway-method 'socks
-                                socks-server '("Default server" "localhost" 8080 5)))
+				;; Advices to activate/deactivate SOCKS proxy before/after function invocation
+				(defadvice opengrok-search (before opengrok-search-use-proxy first)
+					(setq opengrok-url-gateway-method url-gateway-method
+								opengrok-socks-server socks-server
+								url-gateway-method 'socks
+								socks-server '("Default server" "localhost" 8080 5)))
 
-                (defadvice opengrok-search (after opengrok-search-unuse-proxy first)
-                        (setq url-gateway-method opengrok-url-gateway-method
-                                socks-server opengrok-socks-server))
+				(defadvice opengrok-search (after opengrok-search-unuse-proxy first)
+					(setq url-gateway-method opengrok-url-gateway-method
+								socks-server opengrok-socks-server))
 
-                (defadvice opengrok-search-1 (before opengrok-search-1-use-proxy first)
-                        (setq opengrok-url-gateway-method url-gateway-method
-                                opengrok-socks-server socks-server
-                                url-gateway-method 'socks
-                                socks-server '("Default server" "localhost" 8080 5)))
+				(defadvice opengrok-search-1 (before opengrok-search-1-use-proxy first)
+					(setq opengrok-url-gateway-method url-gateway-method
+								opengrok-socks-server socks-server
+								url-gateway-method 'socks
+								socks-server '("Default server" "localhost" 8080 5)))
 
-                (defadvice opengrok-search-1 (after opengrok-search-1-unuse-proxy first)
-                        (setq url-gateway-method opengrok-url-gateway-method
-                                socks-server opengrok-socks-server))
+				(defadvice opengrok-search-1 (after opengrok-search-1-unuse-proxy first)
+					(setq url-gateway-method opengrok-url-gateway-method
+								socks-server opengrok-socks-server))
 
-                (ad-activate 'opengrok-search)
-                (ad-activate 'opengrok-search-1)))
+				(ad-activate 'opengrok-search)
+				(ad-activate 'opengrok-search-1)))
 
 ;(require 'grok)
 ;(setq opengrok-repo-fs-map '(("trunk" . "/wpsb:/home/wpcom/public_html/")
