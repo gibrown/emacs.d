@@ -55,22 +55,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Simplenote Sync
 
-(add-to-list 'load-path "~/.etc/elisp/simplenote.el")
-(require 'simplenote)
-(setq simplenote-email "gbrown5878@gmail.com")
-(setq simplenote-password "qazasd123")
-(simplenote-setup)
-
-
-(global-set-key (kbd "C-x C-g") (lambda ()
-        (interactive)
-        (simplenote-pull-buffer)
-        (org-overview)
-        (beginning-of-buffer)))
-
-(global-set-key (kbd "C-x C-t") (lambda ()
-        (interactive)
-        (simplenote-push-buffer)))
+;(add-to-list 'load-path "~/.etc/elisp/simplenote.el")
+;(require 'simplenote)
+;(setq simplenote-email "blah")
+;(setq simplenote-password "blah")
+;(simplenote-setup)
+;
+;
+;(global-set-key (kbd "C-x C-g") (lambda ()
+;        (interactive)
+;        (simplenote-pull-buffer)
+;        (org-overview)
+;        (beginning-of-buffer)))
+;
+;(global-set-key (kbd "C-x C-t") (lambda ()
+;        (interactive)
+;        (simplenote-push-buffer)))
 
 ; create a new command to pull/push
 ; need a simplenote-pull, and then go to the overview/beginning of the file
