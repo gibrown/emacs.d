@@ -320,7 +320,7 @@
 
 ; Load Scala Mode
 (add-to-list 'load-path "/Users/gbrown/.etc/scala-mode")
-(require 'scala-mode-auto)
+(require-maybe 'scala-mode-auto)
 
 
 (provide 'init-local)
