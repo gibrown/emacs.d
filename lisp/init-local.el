@@ -78,12 +78,11 @@
 
 ;; (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;All Tabs all the time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Turn on tabs
+;; Turn on tabs everywhere
 (setq default-tab-width 2)
 (setq indent-tabs-mode t)
 (setq-default indent-tabs-mode t)
@@ -93,6 +92,19 @@
 (setq tab-width 2)
 (setq cperl-indent-level 2)
 (setq c-indent-level 2)
+
+;; sometimes you need to turn on tabs when loading the mode
+(add-hook 'php-mode-hook 'tab-set-mode-hook)
+(defun tab-set-mode-hook ()
+  (setq default-tab-width 2)
+  (setq indent-tabs-mode t)
+  (setq-default indent-tabs-mode t)
+  (setq js-indent-level 2)
+  (setq c-basic-offset 2)
+  (setq c-basic-indent 2)
+  (setq tab-width 2)
+  (setq cperl-indent-level 2)
+  (setq c-indent-level 2))
 
 ;; Remove trailing whitespace
 ; (remove-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -110,6 +122,10 @@
 (setenv "mc" "/wpsb:/home/missioncontrol/public_html")
 (setenv "pit" "/wpsb:/home/wpcom/the-pit-of-despair")
 (setenv "wpsb" "/wpsb:/home/wpcom")
+
+;hacky workaround
+; for https://lists.gnu.org/archive/html/help-gnu-emacs/2014-06/msg00207.html
+(setq save-interprogram-paste-before-kill nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; a8c grok
@@ -157,26 +173,11 @@
 ;;;;;;;;;;;;;;;;;;;;;
 ;;Org Setup
 
-(setq load-path (cons "~/.etc/org-6.36c/lisp" load-path))
-(setq load-path (cons "~/.etc/org-6.36c/contrib/lisp" load-path))
-(require 'org-install)
-
 ;required to activate
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; org-mode buffers only
-
-(setq org-feed-alist
-      '(("Remember The Milk"
-         "https://www.rememberthemilk.com/rss/gbrown5878/"
-         "~/notes/rtm.org"
-         "Remember The Milk"
-         :template "* TODO %title\n  %a\n "
-         )))
-
-;;* rtm feed timer
-;;(run-at-time 3600 3600 'org-feed-update-all)
 
 ;gtd file organization
 (setq org-agenda-files
@@ -187,7 +188,7 @@
 ;fast access to gtd file - M-x gtd
 (defun gtd ()
    (interactive)
-   (find-file "~/notes/gtd.org")
+   (find-file "~/notes/gtd_work.org")
  )
 
 ;custom agenda settings
