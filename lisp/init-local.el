@@ -323,6 +323,8 @@
 (add-to-list 'load-path "/Users/gbrown/.etc/scala-mode")
 (require-maybe 'scala-mode-auto)
 
+; Load JSX mode
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
 
 (provide 'init-local)
 
